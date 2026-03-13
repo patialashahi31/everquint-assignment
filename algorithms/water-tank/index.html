@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Water Tank Problem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <a class="back" href="../index.html">← Back</a>
+
+  <header>
+    <h1>Water Tank Problem</h1>
+    <p>Compute units of water stored between blocks</p>
+  </header>
+
+  <div class="card">
+    <div class="input-wrap">
+      <label class="input-label" for="heightInput">Block Heights</label>
+      <input type="text" id="heightInput" placeholder="e.g. 0,4,0,0,0,6,0,6,4,0" autocomplete="off" spellcheck="false" />
+      <div class="error" id="errorMsg"></div>
+    </div>
+
+    <div style="margin-top: 12px;">
+      <span style="font-size:0.78rem; color: var(--muted);">Try an example:</span>
+      <div class="examples">
+        <span class="example-chip" onclick="loadExample('0,4,0,0,0,6,0,6,4,0')">0,4,0,0,0,6,0,6,4,0</span>
+        <span class="example-chip" onclick="loadExample('3,0,2,0,4')">3,0,2,0,4</span>
+        <span class="example-chip" onclick="loadExample('0,1,0,2,1,0,1,3,2,1,2,1')">0,1,0,2,1,0,1,3,2,1,2,1</span>
+        <span class="example-chip" onclick="loadExample('4,2,0,3,2,5')">4,2,0,3,2,5</span>
+      </div>
+    </div>
+
+    <button onclick="solve()">Calculate →</button>
+
+    <div class="result-section" id="resultSection">
+      <div class="divider"></div>
+      <div class="result-badge">
+        <span class="label">Water Stored</span>
+        <span class="value" id="resultValue">0 units</span>
+      </div>
+      <div class="svg-wrap" id="svgWrap"></div>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background: var(--block);"></div>Block
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background: var(--water); opacity: 0.85;"></div>Water
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background: var(--empty); border: 1px solid var(--border);"></div>Empty
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

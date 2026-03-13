@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Max Profit Problem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <a class="back" href="../index.html">← Back</a>
+
+  <header>
+    <h1>Max Profit Problem</h1>
+    <p>Find the optimal mix of buildings to maximize earnings</p>
+  </header>
+
+  <div class="card">
+    <div class="input-wrap">
+      <label class="input-label" for="timeInput">Time Units (n)</label>
+      <input type="number" id="timeInput" placeholder="e.g. 13" min="0" autocomplete="off" />
+      <div class="error" id="errorMsg"></div>
+    </div>
+
+    <div style="margin-top: 12px;">
+      <span style="font-size:0.78rem; color: var(--muted);">Try an example:</span>
+      <div class="examples">
+        <span class="example-chip" onclick="loadExample(7)">n = 7</span>
+        <span class="example-chip" onclick="loadExample(8)">n = 8</span>
+        <span class="example-chip" onclick="loadExample(13)">n = 13</span>
+        <span class="example-chip" onclick="loadExample(20)">n = 20</span>
+      </div>
+    </div>
+
+    <button onclick="solve()">Calculate →</button>
+
+    <div class="result-section" id="resultSection">
+      <div class="divider"></div>
+
+      <div class="result-badge">
+        <span class="label">Max Earnings</span>
+        <span class="value" id="resultValue">$0</span>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <span class="input-label">Optimal Solutions</span>
+        <div class="solutions-list" id="solutionsList"></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div style="margin-top: 4px;">
+        <span class="input-label" style="margin-bottom: 12px; display:block;">Building Reference</span>
+        <div class="solutions-list">
+          <div class="solution-item">
+            <span style="color: var(--accent); font-family: 'Space Mono', monospace;">T — Theatre</span>
+            <span style="color: var(--muted); font-size: 0.78rem;">5 units to build · $1500/unit operational</span>
+          </div>
+          <div class="solution-item">
+            <span style="color: var(--accent); font-family: 'Space Mono', monospace;">P — Pub</span>
+            <span style="color: var(--muted); font-size: 0.78rem;">4 units to build · $1000/unit operational</span>
+          </div>
+          <div class="solution-item">
+            <span style="color: var(--accent); font-family: 'Space Mono', monospace;">C — Commercial Park</span>
+            <span style="color: var(--muted); font-size: 0.78rem;">10 units to build · $2000/unit operational</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

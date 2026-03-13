@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: meeting_room_service_db
+    environment:
+      POSTGRES_USER: meeting_room_service_user
+      POSTGRES_PASSWORD: meeting_room_service_pass
+      POSTGRES_DB: meeting_room_service_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sh:/docker-entrypoint-initdb.d/init_db.sh
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U meeting_room_service_user -d meeting_room_service_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: meeting_room_service
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://meeting_room_service_user:meeting_room_service_pass@db:5432/meeting_room_service_db
+      ENV: development
+      PYTHONPATH: /app
+    depends_on:
+      db:
+        condition: service_healthy
+
+  test:
+    build: .
+    container_name: meeting_room_service_test
+    command: >
+      sh -c "PGPASSWORD=meeting_room_service_pass psql -h db -U meeting_room_service_user -d meeting_room_service_db -c 'CREATE DATABASE meeting_room_service_test_db;' 2>/dev/null; pytest tests/ -v --tb=short"
+    environment:
+      DATABASE_URL: postgresql://meeting_room_service_user:meeting_room_service_pass@db:5432/meeting_room_service_test_db
+      ENV: testing
+      PYTHONPATH: /app
+    depends_on:
+      db:
+        condition: service_healthy
+    profiles:
+      - test
+
+volumes:
+  postgres_data:
