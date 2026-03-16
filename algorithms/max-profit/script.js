@@ -53,6 +53,11 @@ function maxProfit(n) {
     }
   }
 
+  // Edge case: n too small to build anything
+  if (solutions.length === 0) {
+    solutions.push({ t: 0, p: 0, c: 0 });
+  }
+
   return { best, solutions };
 }
 
@@ -111,21 +116,17 @@ function solve() {
   const list = document.getElementById('solutionsList');
   list.innerHTML = '';
 
-  if (solutions.length === 0 || best === 0) {
-    list.innerHTML = `<div class="solution-item" style="color: var(--muted);">No profitable buildings can be built in ${n} units.</div>`;
-  } else {
-    solutions.forEach((s, i) => {
-      const div = document.createElement('div');
-      div.className = 'solution-item';
-      div.innerHTML = `
-        <div class="sol-label">Solution ${i + 1}</div>
-        <div class="sol-mix">
-          T: <span>${s.t}</span> &nbsp; P: <span>${s.p}</span> &nbsp; C: <span>${s.c}</span>
-        </div>
-      `;
-      list.appendChild(div);
-    });
-  }
+  solutions.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'solution-item';
+    div.innerHTML = `
+      <div class="sol-label">Solution ${i + 1}</div>
+      <div class="sol-mix">
+        T: <span>${s.t}</span> &nbsp; P: <span>${s.p}</span> &nbsp; C: <span>${s.c}</span>
+      </div>
+    `;
+    list.appendChild(div);
+  });
 
   resultSection.style.display = 'block';
   resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
